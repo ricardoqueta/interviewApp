@@ -1,0 +1,26 @@
+<p-card [style]="{ 'max-width': 'w-fit', overflow: 'hidden' }">
+  <ng-template #header>
+    <a [routerLink]="['/products/fruit/', product?.id]" routerLinkActive>
+      <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+    </a>
+  </ng-template>
+  <ng-template #title> {{product?.name}} </ng-template>
+  <p>
+    <span class="text-sm text-gray-700"> {{ product?.countryOfOrigin }} </span>
+    <span>
+      <p-badge
+        *ngIf="product?.sustainability?.organic"
+        severity="success"
+        value="Organic"
+        class="ml-2"
+      />
+    </span>
+  </p>
+  <p-badge severity="info" *ngIf="!product?.salePriceByUnit" value="Price: 1 {{ product?.unit }} - {{product?.priceByUnit | currency}}"  />
+  <p-badge severity="success" *ngIf="product?.salePriceByUnit" value=" Sale price: 1 {{ product?.unit }} - {{product?.salePriceByUnit | currency}}"  />
+</p-card>
+
+
+
+
+

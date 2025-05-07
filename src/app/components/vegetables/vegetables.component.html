@@ -1,0 +1,10 @@
+<div class="flex flex-row gap-2 my-2">
+  <p-button (click)="clearFilter()" label="All" badge="{{products.length}}" />
+  <p-button (click)="filterPortugueseProducts()" label="Portuguese product" badge="{{portugueseProducts.length}}" />
+  <p-button (click)="filterOrganicProducts()" label="Organic" badge="{{organicProducts.length}}" />
+</div>
+<div class="grid gap-4 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]">
+  <div *ngFor="let filteredProduct of filteredProducts" class="w-full">
+    <app-product-card [product]="filteredProduct" class="w-full" />
+  </div>
+</div>

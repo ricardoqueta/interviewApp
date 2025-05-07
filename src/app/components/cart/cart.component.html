@@ -1,0 +1,41 @@
+<p-drawer position="right" [(visible)]="visible" styleClass="!w-[30rem]" header="Cart">
+  <div class="flex h-full flex-col justify-between ">
+    <div class="flex flex-col justify-start gap-4">
+      <div  *ngFor="let cartItem of cartItems">
+        <p-card>
+          <ng-template #title> {{cartItem.name}} </ng-template>
+          <ng-template #subtitle> Quantity: {{cartItem.quantity}} </ng-template>
+          <div class="flex flex-row gap-2" >
+            <p>Price by {{cartItem.unit }}:</p>
+            <p>{{cartItem.priceByUnit | currency}}</p>
+
+            <p>Total:</p>
+            <p>{{cartItem.priceByUnit * cartItem.quantity | currency}}</p>
+          </div>
+          <ng-template #footer>
+            <div class="flex gap-4 mt-1">
+              <p-button (click)="viewItem(cartItem)" label="View" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+              <p-button (click)="clearItem(cartItem)" label="Remove" severity="danger" class="w-full" styleClass="w-full" />
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+    <div>
+      <div class="flex flex-row justify-between items-center my-4 p-4 bg-gray-100 rounded-lg shadow-md">
+        <span class="text-lg font-semibold text-gray-800">
+          Total items: {{cartItems.length}}
+        </span>
+        <span class="ml-2">
+          Total: {{cartTotal | currency}}
+        </span>
+      </div>
+      <div class="flex flex-row justify-between gap-4">
+        <p-button (click)="clearCart()" label="Clear Cart" severity="danger" class="w-full" styleClass="w-full" disabled="{{cartItems.length === 0}}" />
+        <p-button (click)="goToCheckOut()" label="Checkout" severity="success" class="w-full" styleClass="w-full" disabled="{{cartItems.length < 1}}" />
+      </div>
+    </div>
+  </div>
+</p-drawer>
+<p-button label="{{cartCount}}" (click)="visible = true" icon="pi pi-shopping-cart" />
+

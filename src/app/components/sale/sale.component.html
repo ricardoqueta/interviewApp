@@ -1,0 +1,5 @@
+<div class="grid gap-4 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]">
+  <div *ngFor="let product of products" class="w-full">
+    <app-product-card [product]="product" class="w-full"></app-product-card>
+  </div>
+</div>

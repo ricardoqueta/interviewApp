@@ -1,0 +1,123 @@
+
+  <p-card styleClass="w-full shadow-lg p-4">
+    <ng-template #header>
+      <p-button
+        (click)="goBack()"
+        label="Back"
+        icon="pi pi-arrow-left"
+        variant="outlined"
+        styleClass="p-button-sm"
+      />
+    </ng-template>
+    <ng-template #content>
+      <div class="flex flex-col lg:flex-row gap-8">
+        <div class="flex flex-col w-full lg:w-1/3 gap-4">
+          <h3 class="text-xl font-bold text-gray-800">{{ product?.name }}</h3>
+          <p *ngIf="!product?.salePriceByUnit" class="text-lg font-semibold text-gray-600">
+            Price: 1 {{ product?.unit }} - {{ product?.priceByUnit | currency }}
+          </p>
+          <p *ngIf="product?.salePriceByUnit" class="text-lg font-semibold text-gray-600">
+            Sale price: 1 {{ product?.unit }} - {{ product?.salePriceByUnit | currency }}
+          </p>
+          <p class="text-sm text-gray-500">Rating: {{ product?.rating }}</p>
+          <form
+            (submit)="submit($event)"
+            [formGroup]="formGroup"
+            class="flex flex-col gap-4"
+          >
+            <p-inputnumber
+              inputId="integeronly"
+              formControlName="quantity"
+              styleClass="w-full"
+            />
+            <p-button
+              type="submit"
+              label="Add to cart"
+              icon="pi pi-shopping-cart"
+              [disabled]="formGroup.invalid"
+              styleClass="p-button-success"
+            />
+          </form>
+        </div>
+
+
+        <div class="flex justify-center w-full lg:w-1/3">
+          <img
+            alt="Card"
+            class="w-full rounded-lg shadow-md"
+            src="https://primefaces.org/cdn/primeng/images/card-ng.jpg"
+          />
+        </div>
+
+
+        <div class="flex flex-col w-full lg:w-1/3 gap-4">
+          <p-panel header="Country of Origin" [toggleable]="true">
+            <p class="m-0">
+              {{ product?.countryOfOrigin }}
+            </p>
+          </p-panel>
+          <p-panel header="Nutritional Values" [toggleable]="true">
+            <div class="text-sm">
+              <p class="flex justify-between">
+                <span>Calories:</span>
+                <span>{{ product?.nutritionalValues?.calories }} kj</span>
+              </p>
+              <p class="flex justify-between">
+                <span>Carbohydrates:</span>
+                <span>{{ product?.nutritionalValues?.carbohydrates }} g</span>
+              </p>
+              <p class="flex justify-between">
+                <span>Protein:</span>
+                <span>{{ product?.nutritionalValues?.protein }} g</span>
+              </p>
+              <p class="flex justify-between">
+                <span>Fat:</span>
+                <span>{{ product?.nutritionalValues?.fat }} g</span>
+              </p>
+              <p class="flex justify-between">
+                <span>Fiber:</span>
+                <span>{{ product?.nutritionalValues?.fiber }} g</span>
+              </p>
+              <p class="flex justify-between">
+                <span>Sugar:</span>
+                <span>{{ product?.nutritionalValues?.sugar }} g</span>
+              </p>
+            </div>
+          </p-panel>
+          <p-panel header="Sustainability" [toggleable]="true">
+            <div class="flex flex-row text-sm gap-2">
+              <p *ngIf="product?.sustainability?.organic">
+                <p-badge
+                  severity="success"
+                  value="Organic"
+                  class="ml-2"
+                />
+              </p>
+              <p *ngIf="product?.sustainability?.fairTrade">
+                <p-badge
+                  severity="info"
+                  value="Fair Trade"
+                  class="ml-2"
+                />
+              </p>
+              <p *ngIf="product?.sustainability?.local">
+                <p-badge
+                  severity="info"
+                  value="Local"
+                  class="ml-2"
+                />
+              </p>
+              <p *ngIf="product?.sustainability?.carbonFootprint">
+                <p-badge
+                  severity="warn"
+                  value="Carbon footprint {{ product?.sustainability?.carbonFootprint }}"
+                  class="ml-2"
+
+                />
+            </div>
+            </p-panel>
+        </div>
+      </div>
+    </ng-template>
+  </p-card>
+  <p-toast position="bottom-right" />
